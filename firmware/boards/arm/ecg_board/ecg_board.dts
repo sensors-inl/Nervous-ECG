@@ -1,0 +1,104 @@
+// Copyright (c) 2023 Nordic Semiconductor ASA
+// SPDX-License-Identifier: Apache-2.0
+
+/dts-v1/;
+
+#include <nordic/nrf52840_qiaa.dtsi>
+#include "ecg_board-pinctrl.dtsi"
+
+/ {
+	model = "ecg-board";
+	compatible = "inl,ecg-board";
+
+	chosen {
+		zephyr,sram = &sram0;
+		zephyr,flash = &flash0;
+		zephyr,code-partition = &slot0_partition;
+	};
+	
+	zephyr,user {
+		ad8232-pwr-gpios  = < &gpio0  8  GPIO_ACTIVE_HIGH >; // 8 on final board
+		ad8232-lodp-gpios = < &gpio0  6  GPIO_ACTIVE_HIGH >;
+		ad8232-lodn-gpios = < &gpio0  5  GPIO_ACTIVE_HIGH >;
+		led-rgb-gpios     = < &gpio0 10  GPIO_ACTIVE_LOW >,  // r
+                            < &gpio0 28  GPIO_ACTIVE_LOW >,  // g
+                            < &gpio0 9   GPIO_ACTIVE_LOW >;  // b
+        io-channels       = < &adc 2 >, < &adc 1>; // This number correspond to AIN(n+1) ex. for AIN1 (P0.03) is 2 so it can be used directly in ADC configuration
+        io-channel-names  = "AD8232_OUT", "AD8232_REF";
+		
+	};
+};
+
+&gpiote {
+	status = "okay";
+};
+
+&gpio0 {
+	status = "okay";
+};
+
+&gpio1 {
+	status = "okay";
+};
+
+&uicr {
+    nfct-pins-as-gpios;
+};
+
+&adc {
+    status = "okay";
+};
+
+&i2c0 {
+    compatible = "nordic,nrf-twi"; // Rather than nrf-twim, as it enabled large buffer burst-write without copying data
+    status = "okay";
+    clock-frequency = < I2C_BITRATE_STANDARD >;
+    pinctrl-0 = <&i2c0_default>;
+    pinctrl-1 = <&i2c0_sleep>;
+    pinctrl-names = "default", "sleep";
+
+    bq27441: bq27441@55 {
+        compatible = "ti,bq274xx";
+        reg = <0x55>;
+        //int-gpios = <&gpio1 0 GPIO_ACTIVE_HIGH>; // fake an INT gpio necessary when using CONFIG_PM_DEVICE = y
+        design-voltage = <4200>;
+        design-capacity = <155>;
+        taper-current = <15>;
+        terminate-voltage = <3300>;
+    };
+};
+
+&rtc2 {
+	status = "okay";
+	clock-frequency = <32768>;
+	prescaler = <1>;
+};
+
+&flash0 {
+	partitions {
+		compatible = "fixed-partitions";
+		#address-cells = <1>;
+		#size-cells = <1>;
+
+		boot_partition: partition@0 {
+			label = "mcuboot";
+			reg = <0x0 0xc000>;
+		};
+		slot0_partition: partition@c000 {
+			label = "image-0";
+			reg = <0xc000 0x72000>;
+		};
+		slot1_partition: partition@7e000 {
+			label = "image-1";
+			reg = <0x7e000 0x72000>;
+		};
+		scratch_partition: partition@f0000 {
+			label = "image-scratch";
+			reg = <0xf0000 0xa000>;
+		};
+		storage_partition: partition@fa000 {
+			label = "storage";
+			reg = <0xfa000 0x6000>;
+		};
+	};
+};

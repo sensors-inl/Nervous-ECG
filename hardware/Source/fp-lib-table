@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "nervous-ecg")(type "KiCad")(uri "${KIPRJMOD}/nervous-ecg.pretty")(options "")(descr ""))
+)

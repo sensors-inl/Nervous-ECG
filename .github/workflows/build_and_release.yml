@@ -1,0 +1,159 @@
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+' # Matches semantic versioning tags like v1.2.3
+      - 'v[0-9]+.[0-9]+.[0-9]+-*' # Also matches pre-release tags like v1.2.3-beta
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: false
+          prerelease: false
+          body_path: CHANGELOG.md
+
+  build-firmware:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    container:
+      # Zephyr toolchain from here:
+      # https://github.com/zephyrproject-rtos/docker-image/pkgs/container/ci
+      # v0.26.7 updates to zephyr sdk v0.16.5 which is aligned with ncs v2.6.0
+      image: ghcr.io/zephyrproject-rtos/ci:v0.26.7
+    env:
+      # Tell cmake where to find the zephyr sdk
+      CMAKE_PREFIX_PATH: /opt/toolchains
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Clone the repo to a subdirectory, so we can initialize the Zephyr
+          # workspace in the parent directory.
+          path: zephyr-workspace
+
+      - name: ♻️ Initialize Zephyr Workspace
+        # Set up the Zephyr workspace and install the Python dependencies
+        run: |
+          cd zephyr-workspace
+          rm -rf .west
+          west init -l firmware
+          west update --narrow -o=--depth=1
+
+      - name: 🔨 Build Project
+        run: |
+          cd zephyr-workspace
+          west build \
+              --pristine \
+              --build-dir ./build \
+              --board ecg_board firmware \
+              -- \
+              -DNCS_TOOLCHAIN_VERSION=NONE \
+              -DBOARD_ROOT=./ \
+              -DCONF_FILE=prj.conf \
+              -DEXTRA_CONF_FILE=overlay-ota.conf
+          mkdir ../firmware-output/
+          mv ./build/zephyr/app_update.bin ../${{ github.event.repository.name }}-firmware-ota-${{ github.ref_name }}.bin
+          mv ./build/zephyr/merged.hex ../${{ github.event.repository.name }}-firmware-full-${{ github.ref_name }}.hex
+
+      - name: 💾 Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ${{ github.event.repository.name }}-firmware-*
+
+  build-app-win32:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    container:
+      image: electronuserland/builder:wine-mono
+    env:
+      ARCH: x64
+      PLATFORM: win32
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: initial-repository
+
+      - name: ♻️ Setup environment
+        run: |
+          apt-get update
+          apt-get upgrade -y
+          apt-get install dpkg -y
+          apt-get install fakeroot -y
+          apt-get install zip -y
+          # Create a directory for Wine configuration
+          mkdir -p /tmp/wine
+          chmod 777 /tmp/wine
+          export WINEPREFIX=/tmp/wine
+          winecfg
+
+      - name: 🔨 Install dependencies and build
+        run: |
+          cp -rf ./initial-repository/web-app/* .
+          export WINEPREFIX=/tmp/wine
+          npm install --save-dev electron
+          npm install --save-dev @electron-forge/cli
+          npx electron-forge import
+          npx electron-forge package --arch=${{ env.ARCH }} --platform=${{ env.PLATFORM }}
+
+      - name: 💾 Archive artifacts in .zip file
+        run: |
+          cd out
+          zip -qr ${{ github.event.repository.name }}-app-${{ env.ARCH }}-${{ env.PLATFORM }}-${{ github.ref_name }}.zip ./*
+
+      - name: 💾 Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            out/${{ github.event.repository.name }}-app-${{ env.ARCH }}-${{ env.PLATFORM }}-${{ github.ref_name }}.zip
+
+  build-app-linux:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    container:
+      image: electronuserland/builder
+    env:
+      ARCH: x64
+      PLATFORM: linux
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: initial-repository
+
+      - name: ♻️ Setup environment
+        run: |
+          apt-get update
+          apt-get upgrade -y
+          apt-get install zip -y
+
+      - name: 🔨 Install dependencies and build
+        run: |
+          cp -rf ./initial-repository/web-app/* .
+          npm install --save-dev electron
+          npm install --save-dev @electron-forge/cli
+          npx electron-forge import
+          npx electron-forge package
+
+      - name: 💾 Archive artifacts in .zip file
+        run: |
+          cd out
+          zip -qr ${{ github.event.repository.name }}-app-${{ env.ARCH }}-${{ env.PLATFORM }}-${{ github.ref_name }}.zip ./*
+
+      - name: 💾 Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            out/${{ github.event.repository.name }}-app-${{ env.ARCH }}-${{ env.PLATFORM }}-${{ github.ref_name }}.zip
+
