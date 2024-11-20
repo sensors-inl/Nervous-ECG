@@ -20,6 +20,25 @@ jobs:
           prerelease: false
           body_path: CHANGELOG.md
 
+  archive-hardware:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 📁 Archive artifacts in .zip file
+        run: |
+          cd hardware
+          zip -qr ${{ github.event.repository.name }}-hardware-${{ github.ref_name }}.zip ./*
+
+      - name: 💾 Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            hardware/${{ github.event.repository.name }}-hardware-${{ github.ref_name }}.zip
+
+
   build-firmware:
     runs-on: ubuntu-latest
     permissions:
@@ -63,7 +82,7 @@ jobs:
           mv ./build/zephyr/app_update.bin ../${{ github.event.repository.name }}-firmware-ota-${{ github.ref_name }}.bin
           mv ./build/zephyr/merged.hex ../${{ github.event.repository.name }}-firmware-full-${{ github.ref_name }}.hex
 
-      - name: 💾 Release
+      - name: 📤 Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
@@ -106,12 +125,12 @@ jobs:
           npx electron-forge import
           npx electron-forge package --arch=${{ env.ARCH }} --platform=${{ env.PLATFORM }}
 
-      - name: 💾 Archive artifacts in .zip file
+      - name: 📁 Archive artifacts in .zip file
         run: |
           cd out
           zip -qr ${{ github.event.repository.name }}-app-${{ env.ARCH }}-${{ env.PLATFORM }}-${{ github.ref_name }}.zip ./*
 
-      - name: 💾 Release
+      - name: 📤 Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
@@ -146,12 +165,12 @@ jobs:
           npx electron-forge import
           npx electron-forge package
 
-      - name: 💾 Archive artifacts in .zip file
+      - name: 📁 Archive artifacts in .zip file
         run: |
           cd out
           zip -qr ${{ github.event.repository.name }}-app-${{ env.ARCH }}-${{ env.PLATFORM }}-${{ github.ref_name }}.zip ./*
 
-      - name: 💾 Release
+      - name: 📤 Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
