@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="nervous-logo.png" align="center" width="50%">
+    <img src="assets/nervous-logo.png" align="center" width="50%">
 </p>
 <p align="center">
     <h1 align="center">Nervous ECG Sensor</h1>
@@ -33,7 +33,7 @@ The **Nervous** project is an initiative based on open-hardware and open-source 
 The **Nervous ECG** project is part of the **[Nervous Toolkit](https://github.com/sensors-inl/Nervous-Toolkit)** and includes hardware design files and firmware source files for creating an electrocardiogram (ECG) sensor to measure the ECG signal **from the hands or forearms**.
 The device is wireless and transmits the collected data via Bluetooth Low Energy.
 
-![Illustration of the Nervous ECG sensor and real-time data shown on the application](nervous-ecg-overview.png "Nervous ECG sensor and application")
+![Illustration of the Nervous ECG sensor and real-time data shown on the application](assets/nervous-ecg-overview.png "Nervous ECG sensor and application")
 
 ---
 

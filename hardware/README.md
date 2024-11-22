@@ -31,7 +31,7 @@
 
 ## Overview
 
-![Nervous ECG printed circuit board](nervous-ecg-pcb.png "Nervous ECG printed circuit board")
+![Nervous ECG printed circuit board](../assets/nervous-ecg-pcb.png "Nervous ECG printed circuit board")
 
 This folder contains ECAD files for the production of PCBs and assembly of circuits for the Nervous ECG sensor.
 The printed circuit board was designed using the open source electronics design automation suite [KiCad EDA](https://www.kicad.org/) v7.0.8
@@ -85,7 +85,7 @@ The `Source` folder contains the original KiCad project, created using KiCad ver
 
 ## Casing
 
-![Nervous ECG casing for wrist attachment](nervous-ecg-casing-wrist.png "Nervous ECG casing for wrist attachment")
+![Nervous ECG casing for wrist attachment](../assets/nervous-ecg-casing-wrist.png "Nervous ECG casing for wrist attachment")
 
 Several 3D models are available for producing a casing for the electronics. STEP and STL files are located in the `Casing` folder:
 

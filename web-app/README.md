@@ -28,6 +28,8 @@
 
 ## Overview
 
+![Web application of the Nervous ECG sensor](../assets/nervous-ecg-web-app.png "Web application of the Nervous ECG sensor")
+
 This repository contains an HTML/JavaScript application that connects to Nervous ECG sensors. The application plots ECG data in real-time and saves the signal to a `.csv` file. It consists of a single static HTML page, `index.html`, along with two JavaScript files: `app.js` (the main application script) and `proto.js` (the JavaScript compilation of the Protocol Buffer files).
 
 This application uses several libraries. For offline usage, local copies of these libraries are included. The following versions of the libraries are currently used:
