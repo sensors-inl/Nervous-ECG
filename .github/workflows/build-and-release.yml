@@ -21,6 +21,7 @@ jobs:
           body_path: CHANGELOG.md
 
   archive-hardware:
+    needs: create-release
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -40,6 +41,7 @@ jobs:
 
 
   build-firmware:
+    needs: create-release
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -89,6 +91,7 @@ jobs:
             ${{ github.event.repository.name }}-firmware-*
 
   build-app-win32:
+    needs: create-release
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -137,6 +140,7 @@ jobs:
             out/${{ github.event.repository.name }}-app-${{ env.ARCH }}-${{ env.PLATFORM }}-${{ github.ref_name }}.zip
 
   build-app-linux:
+    needs: create-release
     runs-on: ubuntu-latest
     permissions:
       contents: write
