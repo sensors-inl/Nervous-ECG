@@ -2,4 +2,4 @@
 
 ## [1.0.0] - 2024-11-18
 
-_First release._
+🎉 _First release !_

@@ -1,10 +1,16 @@
 <p align="center">
-    <img src="nervous-logo.svg" align="center" width="30%">
+    <img src="assets/nervous-logo.png" align="center" width="50%">
 </p>
-<p align="center"><h1 align="center">Nervous ECG</h1></p>
+<p align="center">
+    <h1 align="center">Nervous ECG Sensor</h1>
+</p>
 
 <p align="center">
+    <a href="https://github.com/sensors-inl/Nervous-ECG/releases/"><img src="https://img.shields.io/github/tag/sensors-inl/Nervous-ECG?include_prereleases=&sort=semver&color=blue" alt="GitHub tag"></a>
+    <a href="https://github.com/sensors-inl/Nervous-ECG/releases/"><img alt="GitHub Release Date" src="https://img.shields.io/github/release-date/sensors-inl/Nervous-ECG"></a>
+	<img alt="github actions" src="https://img.shields.io/badge/GitHub%20Actions-%232671E5?logo=github%20actions&logoColor=white"/>
 	<a href="https://opensource.org/licenses/MIT"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg"/></a>
+</p>
 
 ## Table of Contents
 
@@ -12,6 +18,7 @@
 - [Overview](#overview)
 - [Features](#features)
 - [Instructions](#instructions)
+- [Releases](#releases)
 - [Contributing](#contributing)
 - [Contact](#contact)
 - [License](#license)
@@ -21,45 +28,65 @@
 
 ## Overview
 
-The **Nervous** initiative is a project embracing open-hardware and open-source principles, with the goal of delivering wearable sensors and accompanying software for the analysis of Autonomic Nervous System (SNA) activity.
+The **Nervous** project is an initiative based on open-hardware and open-source principles, aimed at providing wearable sensors and software for analyzing the Autonomic Nervous System (ANS) activity.
 
-The **Nervous ECG** project is part of the **[Nervous Toolkit](https://github.com/sensors-inl/Nervous-Toolkit)** and contains hardware design files and firmware source files for the design of an electrocardiography (ECG) sensor to collect ECG signal on the hands or forearms.
-The device is wireless and send the signal acquired using Bluetooth Low Energy.
+The **Nervous ECG** project is part of the **[Nervous Toolkit](https://github.com/sensors-inl/Nervous-Toolkit)** and includes hardware design files and firmware source files for creating an electrocardiogram (ECG) sensor to measure the ECG signal **from the hands or forearms**.
+The device is wireless and transmits the collected data via Bluetooth Low Energy.
 
-![Illustration of the Nervous ECG sensor and signal obtained in real-time on the application](nervous-ecg-overview.png "Nervous ECG sensor and application")
+![Illustration of the Nervous ECG sensor and real-time data shown on the application](assets/nervous-ecg-overview.png "Nervous ECG sensor and application")
+
+---
 
 ## Features
 
-The project is actually a collection of three projects for the design of the
-sensor which live in the three following subdirectories:
+This project is actually a collection of three sub-projects for the sensor design, located in the following directories:
 
-[hardware](./hardware/): Contained within this folder are ECAD files for the production of PCBs and the assembly of circuits for a wireless, wrist-worn ECG sensor.
+[hardware](./hardware/): This folder contains ECAD files for producing PCBs and assembling circuits for a wireless wrist-worn ECG sensor.
+A archive (.zip) containing the design and manufacturing/assembly files for the sensor is available in the releases of this project.
 
-[firmware](./firmware/): This folder contains sources to build binaries for the programming of the microcontroller.
-Pre-built binaries are also attached to releases of this project.
+[firmware](./firmware/): This folder contains source files to build binaries for programming the microcontroller.
+Precompiled binaries are also provided in the releases of this project.
 
-[web-app](./web-app/): This sensor is primarily intended to be used with the ```nervous-sensors``` Python package included in the Nervous project toolkit.
-However, a standalone web-application is provided for simple usage of the sensor, including sensor control, real-time data visualization and recording.
+[web-app](./web-app/): While the sensor is primarily designed to work with the [```nervous-sensors```](https://github.com/sensors-inl/Nervous-Sensors) Python package included in the Nervous Toolkit, a standalone web application is provided for simplified use of the sensor.
+It offers sensor control, real-time data visualization, and recording features.
+Pre-built executables for both Microsoft Windows and Linux are also available in the releases of this project.
+
+---
 
 ## Instructions
 
-Detailed instructions are given in each subdirectory in order to manufacture and use the sensor.
+Detailed instructions are provided in each subdirectory for manufacturing, programming, and using the sensor.
+
+---
+
+## Releases
+
+Each [release](https://github.com/sensors-inl/Nervous-ECG/releases/latest) contains built firmware and application binaries as well as an archive of ECAD files.
+
+---
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated. You can open an issue to report a bug, request a feature, or submit a pull request.
+Contributions are what make the open-source community such a great place to learn, inspire, and create. Any contributions you make are greatly appreciated. You can open an issue to report a bug, request a feature, or submit a pull request.
+
+---
 
 ## Contact
 
 Bertrand MASSOT - [bertrand.massot@insa-lyon.fr](mailto:bertrand.massot@insa-lyon.fr)
 
+---
+
 ## License
 
-This project, like the entire Nervous initiative, is protected under the [MIT License]([LICENSE.md](https://opensource.org/licenses/MIT)) License. For more details, refer to the [License](LICENSE.md) file.
+This project, along with the entire Nervous initiative, is licensed under the [MIT License](https://opensource.org/licenses/MIT). For more details, see the [License](LICENSE.md) file.
+
+---
 
 ## Acknowledgments
 
-Main contributors for this project are Bertrand Massot, Matthieu Mesnage and Hugo Buy from 
-INSA Lyon, CNRS, INL UMR 5270, Villeurbanne, France.
+The main contributors to this project are Bertrand Massot, Matthieu Mesnage, Tristan Habemont and Hugo Buy from INSA Lyon, CNRS, INL UMR 5270, Villeurbanne, France.
 
-This work was supported by the French National Reasearch Agency (ANR) under the grant ANR-22-CE31-0023-03 RENFORCE.
+This work was supported by the **French National Research Agency (ANR)** under grant **ANR-22-CE31-0023-03 RENFORCE**.
+
+---
