@@ -20,9 +20,9 @@
 - [Instructions](#instructions)
 - [Releases](#releases)
 - [Contributing](#contributing)
-- [Contact](#contact)
 - [License](#license)
 - [Acknowledgments](#acknowledgments)
+- [Contact](#contact)
 
 ---
 
@@ -71,12 +71,6 @@ Contributions are what make the open-source community such a great place to lear
 
 ---
 
-## Contact
-
-Bertrand MASSOT - [bertrand.massot@insa-lyon.fr](mailto:bertrand.massot@insa-lyon.fr)
-
----
-
 ## License
 
 This project, along with the entire Nervous initiative, is licensed under the [MIT License](https://opensource.org/licenses/MIT). For more details, see the [License](LICENSE.md) file.
@@ -85,8 +79,14 @@ This project, along with the entire Nervous initiative, is licensed under the [M
 
 ## Acknowledgments
 
-The main contributors to this project are Bertrand Massot, Matthieu Mesnage, Tristan Habemont and Hugo Buy from INSA Lyon, CNRS, INL UMR 5270, Villeurbanne, France.
+The main contributors to this project are Bertrand Massot, Matthieu Mesnage, and Hugo Buy from INSA Lyon, CNRS, INL UMR 5270, Villeurbanne, France.
 
 This work was supported by the **French National Research Agency (ANR)** under grant **ANR-22-CE31-0023-03 RENFORCE**.
+
+---
+
+## Contact
+
+[bertrand.massot@insa-lyon.fr](mailto:bertrand.massot@insa-lyon.fr)
 
 ---
