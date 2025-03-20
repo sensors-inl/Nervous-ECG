@@ -437,9 +437,9 @@ function saveWindowData() {
     date = date.replace(/:/g, "-").replace(/ /g, "_");
     const filename = "ECG_" + date + '.csv';
     // Set header
-    let csvContent = 'Time(s), ECG\r\n'
+    let csvContent = 'Time(s),ECG(A.U.)\r\n'
     window.data.forEach(element => {
-        csvContent += element.x.toFixed(6).toString() + ', ' + element.y.toString() + '\r\n'
+        csvContent += element.x.toFixed(6).toString() + ',' + element.y.toString() + '\r\n'
     });
         
     let element = document.createElement('a');
