@@ -3,7 +3,7 @@
  * @file    main.c
  * @author  Bertrand Massot (bertrand.massot@insa-lyon.fr)
  * @date    2022-02-24
- * @brief   RECAMED ECG project main file
+ * @brief   NERVOUS ECG project main file
  *******************************************************************************
  */
 
