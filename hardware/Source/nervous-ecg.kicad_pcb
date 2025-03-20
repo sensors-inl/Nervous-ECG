@@ -12724,7 +12724,6 @@
 			(at 0.084 0.051 0)
 			(unlocked yes)
 			(layer "Dwgs.User")
-			(hide yes)
 			(uuid "076ba293-cae2-46a4-bd60-ee442fbbde48")
 			(effects
 				(font
