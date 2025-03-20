@@ -4,7 +4,7 @@
 
 <p align="center">
     <a href="https://www.kicad.org/">
-        <img alt="KiCad v7.0.8" src="https://img.shields.io/badge/v7.0.8-grey?label=KiCad&labelColor=blue" />
+        <img alt="KiCad v9.0.0" src="https://img.shields.io/badge/v9.0.0-grey?label=KiCad&labelColor=blue" />
     </a>
     <a href="https://opensource.org/licenses/MIT">
         <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
@@ -30,7 +30,7 @@
 ![Nervous ECG printed circuit board](../assets/nervous-ecg-pcb.png "Nervous ECG printed circuit board")
 
 This folder contains ECAD files for the production of PCBs and assembly of circuits for the Nervous ECG sensor.
-The printed circuit board was designed using the open source electronics design automation suite [KiCad EDA](https://www.kicad.org/) v7.0.8
+The printed circuit board was designed using the open source electronics design automation suite [KiCad EDA](https://www.kicad.org/) v9.0.0
 
 Originally designed for measuring heart rate via electrodes placed on the forearms or hands, this sensor utilizes the AD8232 along with passive components, as described in the "EXERCISE APPLICATION: HEART RATE MEASURED AT THE HANDS" section on page 27 of the [datasheet](<https://www.analog.com/media/en/technical-documentation/data-sheets/ad8232.pdf>).
 You can modify this configuration for different applications and electrode placements.
